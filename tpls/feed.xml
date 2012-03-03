@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ste:mktag name="atom_feed_author" mandatory="var">
+	<author>
+		<name><ste:escape><ste:get var="${_tag_parameters[var]}[name]" /></ste:escape></name>
+		?{<ste:get var="${_tag_parameters[var]}[email]" />|<email><ste:escape><ste:get var="${_tag_parameters[var]}[email]" /></ste:escape></email>|}
+		?{<ste:get var="${_tag_parameters[var]}[uri]" />|<uri><ste:escape><ste:get var="${_tag_parameters[var]}[uri]" /></ste:escape></uri>|}
+	</author>
+</ste:mktag>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="$feed[lang]" xml:base="$xmlbase">
+	<title><ste:escape>$feed[title]</ste:escape></title>
+	<link rel="self" href="<ste:escape>$baseurl/$feed[feedpath]/$feed[lang]/$feed[mode]/$feed[id].xml</ste:escape>"/>
+	?{$feed[alternate]|<link href="<ste:escape>$feed[alternate]</ste:escape>" />|}
+	<updated><ste:date timestamp="$feed[updated]">%Y-%m-%dT%H:%M:%SZ</ste:date></updated>
+	<ste:if>$feed[author]
+		<ste:then>
+			<ste:atom_feed_author var="feed[author]" />
+		</ste:then>
+	</ste:if>
+	<ste:set var="feed_id_root">data:,<ste:escape>$feed[unique_id]/$feed[lang]/$feed[mode]/$feed[id]</ste:escape></ste:set>
+	<id>$feed_id_root</id>
+	<generator>atom_feed plugin for Ratatöskr</generator>
+	
+	<ste:foreach array="feed[entries]" value="entry">
+		<entry>
+			<id>$feed_id_root/$entry[id]</id>
+			<title><ste:escape>$entry[title]</ste:escape></title>
+			<updated><ste:date timestamp="$entry[updated]">%Y-%m-%dT%H:%M:%SZ</ste:date></updated>
+			?{$entry[author]|<ste:atom_feed_author var="entry[author]" />|}
+			<ste:if>$entry[content]
+				<ste:then>
+					<content type="xhtml">
+						<div xmlns="http://www.w3.org/1999/xhtml">$entry[content]</div>
+					</content>
+				</ste:then>
+			</ste:if>
+			<ste:if>$entry[summary]
+				<ste:then>
+					<summary type="xhtml">
+						<div xmlns="http://www.w3.org/1999/xhtml">$entry[summary]</div>
+					</summary>
+				</ste:then>
+			</ste:if>
+			<ste:if>$entry[alternate]
+				<ste:then>
+					<link href="<ste:escape>$entry[alternate]</ste:escape>" />
+				</ste:then>
+			</ste:if>
+		</entry>
+	</ste:foreach>
+
+</feed>

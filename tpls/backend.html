@@ -1,0 +1,16 @@
+<ste:load name="/systemtemplates/master.html" />
+<ste:block name="content">
+	<ste:default_error />
+	<ste:default_success />
+	
+	<h2>Configure your feeds</h2>
+	<form action="$rel_path_to_pluginpage" method="POST" accept-charset="UTF-8">
+		<p><strong>Title of your feeds:</strong> <input type="text" name="title" value="<ste:escape>$feed_title</ste:escape>" /></p>
+		<p><strong>URL path:</strong> <input type="text" name="path" value="<ste:escape>$feed_path</ste:escape>" /></p>
+		<p><strong>Default author name:</strong> <input type="text" name="author_name" value="<ste:escape>$feed_author[name]</ste:escape>" /></p>
+		<p><strong>Default author email:</strong> <input type="text" name="author_email" value="<ste:escape>$feed_author[email]</ste:escape>" /></p>
+		<p><strong>Default author uri:</strong> <input type="text" name="author_uri" value="<ste:escape>$feed_author[uri]</ste:escape>" /></p>
+		<p><strong>Feed base ID (only change this, if you really know what you are doing):</strong> <input type="text" name="baseid" value="<ste:escape>$feed_baseid</ste:escape>" /></p>
+		<p><input type="submit" name="save_config" /></p>
+	</form>
+</ste:block>
