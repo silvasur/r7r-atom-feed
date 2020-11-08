@@ -143,7 +143,7 @@ class atom_feed extends RatatoeskrPlugin
                 if(!isset($article->title[$lang]))
                     throw new NotFoundError();
                 $comments = $article->get_comments($lang, True);
-                usort($comments, function($a, $b) { return intcmp($a->get_timestamp(), $b->get_timestamp()); });
+                usort($comments, function($a, $b) { return $a->get_timestamp() <=> $b->get_timestamp(); });
 
                 $this->ste->vars["feed"]["title"]     = "Comments for " . $article->title[$lang]->text . " - " . $this->config["title"];
                 $this->ste->vars["feed"]["alternate"] = "$baseurl/$lang/" . $article->urlname;

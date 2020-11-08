@@ -8,8 +8,8 @@ r7r-plugin-packer \
     --classname=atom_feed \
     --pluginname=atom_feed \
     --author='Laria Carolin Chabowski <laria@laria.me>' \
-    --versiontext="0.5.1" \
-    --versioncount=4 \
+    --versiontext="0.5.2" \
+    --versioncount=5 \
     --api=5 \
     --shortdesc="Power up your website with some Atom Feeds!" \
     --helpfile=help.html \
